@@ -1,7 +1,7 @@
 ---
 title: La fórmula de la autoconfianza
 author: Napoleón Hill
-img: /public/libro_1.jpg
+img: /libro_1.jpg
 readtime: "240"
 description: Una guía hacia la autosuficiencia y el éxito fortaleciendo la confianza en uno mismo mediante estrategias de reprogramación mental.
 buy:

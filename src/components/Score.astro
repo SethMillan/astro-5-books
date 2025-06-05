@@ -1,0 +1,15 @@
+---
+import { SCORE_API_ENDPOINT } from "astro:env/server";
+let star = "";
+
+const res = await fetch(SCORE_API_ENDPOINT)
+const scoreValue = await res.text()
+let scoreCounter = parseInt(scoreValue) // ← ESTO FALTABA
+
+while (scoreCounter > 0) {
+  star += "⭐";
+  scoreCounter--;
+}
+---
+
+<span id="score">Puntuación: {star}</span>
