@@ -1,0 +1,50 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import "../../styles/global.css";
+import { SHOW_BUY_BUTTON } from "astro:env/server";
+import Paypal from "../../components/Paypal.astro";
+import Score from "../../components/score.astro";
+export async function getStaticPaths() {
+  const books = await getCollection("books");
+  return books.map((book) => ({
+    params: { id: book.slug },
+    props: { book },
+  }));
+}
+const { book } = Astro.props;
+const { data, slug } = book;
+const { title, author, buy, description, img, readtime } = data;
+const { Content } = await render(book);
+---
+
+<Layout title={`${title} - Dev books`}>
+  <div class="flex gap-12">
+    <aside class="flex flex-col items-center gap-4">
+      <a href="/" class="hover:underline opacity-70"> ← Regresar al Inicio</a>
+      <img
+        transition:name={`img-${slug}`}
+        class="rounded w-48 h-auto"
+        src={`${img}`}
+        alt={title}
+      />
+      <Score id={slug}> </Score>
+      {
+        SHOW_BUY_BUTTON && (
+          <div class="mt-4 flex items-center justify-center w-52 bg-white h-10 rounded-2xl hover:bg-yellow-200 transition-colors cursor-pointer">
+            <Paypal />
+            <p class=" ml-2 font-extralight text-black text-sm">
+              Credit or Debit Card
+            </p>
+          </div>
+        )
+      }
+    </aside>
+    <main class="max-w-3xl">
+      <h1 class="text-4xl font-bold mb-4">{title}</h1>
+      <div class="prose prose-invert">
+        <Content />
+      </div>
+    </main>
+  </div>
+</Layout>
