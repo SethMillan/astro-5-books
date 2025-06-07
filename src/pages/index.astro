@@ -14,14 +14,14 @@ export const prerender = true;
   </main>
   <section aria-label="Libros recomendados para programadores">
     <div class="px-4 mx-auto max-w-screen-xl">
-      <div class="grid gap-6 md:grid-cols-2">
+      <div class="grid gap-6 lg:grid-cols-2">
         {
           books.map((book) => {
             const { slug, data } = book;
             const { title, author, img, buy, description, readtime } = data;
 
             return (
-              <article class="flex">
+              <article class="flex justify-center ">
                 <a
                   href={`libro/${slug}`}
                   class="mb-2 xl:mb-0 transition hover:scale-110"
@@ -34,7 +34,7 @@ export const prerender = true;
                   />
                 </a>
 
-                <div class="flex flex-col justify-center">
+                <div class="flex flex-col justify-center pl-3">
                   <h2 class="mb-2 text-2xl font-bold leading-tight text-white">
                     {title}
                   </h2>
