@@ -4,7 +4,7 @@ import Layout from "../../layouts/Layout.astro";
 import "../../styles/global.css";
 import { SHOW_BUY_BUTTON } from "astro:env/server";
 import Paypal from "../../components/Paypal.astro";
-import Score from "../../components/score.astro";
+import Score from "../../components/Score.astro";
 export async function getStaticPaths() {
   const books = await getCollection("books");
   return books.map((book) => ({
@@ -16,6 +16,7 @@ const { book } = Astro.props;
 const { data, slug } = book;
 const { title, author, buy, description, img, readtime } = data;
 const { Content } = await render(book);
+export const prerender = true;
 ---
 
 <Layout title={`${title} - Dev books`}>
@@ -28,7 +29,9 @@ const { Content } = await render(book);
         src={`${img}`}
         alt={title}
       />
-      <Score id={slug}> </Score>
+      <Score server:defer id={slug}>
+        <span slot="fallback" class="opacity-60">Cargando puntuacion...</span>
+      </Score>
       {
         SHOW_BUY_BUTTON && (
           <div class="mt-4 flex items-center justify-center w-52 bg-white h-10 rounded-2xl hover:bg-yellow-200 transition-colors cursor-pointer">
