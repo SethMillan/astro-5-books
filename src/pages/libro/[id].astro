@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
+
 import Layout from "../../layouts/Layout.astro";
 import "../../styles/global.css";
 import { SHOW_BUY_BUTTON } from "astro:env/server";
@@ -20,34 +21,36 @@ export const prerender = true;
 ---
 
 <Layout title={`${title} - Dev books`}>
-  <div class="flex gap-12">
-    <aside class="flex flex-col items-center gap-4">
-      <a href="/" class="hover:underline opacity-70"> ← Regresar al Inicio</a>
-      <img
-        transition:name={`img-${slug}`}
-        class="rounded w-48 h-auto"
-        src={`${img}`}
-        alt={title}
-      />
-      <Score server:defer id={slug}>
-        <span slot="fallback" class="opacity-60">Cargando puntuacion...</span>
-      </Score>
-      {
-        SHOW_BUY_BUTTON && (
-          <div class="mt-4 flex items-center justify-center w-52 bg-white h-10 rounded-2xl hover:bg-yellow-200 transition-colors cursor-pointer">
-            <Paypal />
-            <p class=" ml-2 font-extralight text-black text-sm">
-              Credit or Debit Card
-            </p>
-          </div>
-        )
-      }
-    </aside>
-    <main class="max-w-3xl">
-      <h1 class="text-4xl font-bold mb-4">{title}</h1>
-      <div class="prose prose-invert">
-        <Content />
-      </div>
-    </main>
+  <div class="min-h-screen flex items-center justify-center p-8">
+    <div class="flex gap-12" class="justify-center align-middle">
+      <aside class="flex flex-col items-center gap-4">
+        <a href="/" class="hover:underline opacity-70"> ← Regresar al Inicio</a>
+        <img
+          transition:name={`img-${slug}`}
+          class="rounded w-48 h-auto"
+          src={`${img}`}
+          alt={title}
+        />
+        <Score server:defer id={slug}>
+          <span slot="fallback" class="opacity-60">Cargando puntuacion...</span>
+        </Score>
+        {
+          SHOW_BUY_BUTTON && (
+            <div class="mt-4 flex items-center justify-center w-52 bg-white h-10 rounded-2xl hover:bg-yellow-200 transition-colors cursor-pointer">
+              <Paypal />
+              <p class=" ml-2 font-extralight text-black text-sm">
+                Credit or Debit Card
+              </p>
+            </div>
+          )
+        }
+      </aside>
+      <main class="max-w-3xl">
+        <h1 class="text-4xl font-bold mb-4">{title}</h1>
+        <div class="prose prose-invert">
+          <Content />
+        </div>
+      </main>
+    </div>
   </div>
 </Layout>
